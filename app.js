@@ -90,7 +90,7 @@ if(!pending.length){updateConnectionStatus("سفارشی برای ارسال و�
 for(const order of pending){
 order.sync_status="pending";order.sync_error="";save();
 try{
-const response=await fetch(sbConfig.url+"/functions/v1/receive-order",{
+const response=await fetch(sbConfig.url+"/functions/v1/super-api",{
 method:"POST",
 headers:{"Content-Type":"application/json","apikey":sbConfig.key,"Authorization":"Bearer "+session.access_token},
 body:JSON.stringify(order.payload)
