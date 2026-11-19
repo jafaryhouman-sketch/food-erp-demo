@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ورود آزمایشی ERP</title>
+<style>
+body{font-family:Tahoma;max-width:600px;margin:30px auto;padding:16px;background:#f4f6f7}
+main{background:white;padding:20px;border-radius:12px}
+input{box-sizing:border-box;width:100%;padding:12px;margin:8px 0;border:1px solid #bbb;border-radius:7px}
+button{padding:12px 20px;background:#155e52;color:white;border:0;border-radius:7px}
+pre{direction:ltr;overflow-wrap:anywhere;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<main>
+<h2>ورود آزمایشی Supabase</h2>
+<label>Project URL</label>
+<input id="url" placeholder="https://....supabase.co">
+<label>Publishable Key</label>
+<input id="key" placeholder="sb_publishable_...">
+<label>ایمیل کاربر آزمایشی</label>
+<input id="email" type="email">
+<label>رمز عبور</label>
+<input id="password" type="password">
+<button id="login">ورود و دریافت توکن</button>
+<p id="status"></p>
+<pre id="token"></pre>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.getElementById("login").onclick=async()=>{
+const status=document.getElementById("status");
+const out=document.getElementById("token");
+status.textContent="در حال ورود...";
+out.textContent="";
+try{
+const url=document.getElementById("url").value.trim();
+const key=document.getElementById("key").value.trim();
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const client=window.supabase.createClient(url,key);
+const {data,error}=await client.auth.signInWithPassword({email,password});
+if(error)throw error;
+out.textContent="Bearer "+data.session.access_token;
+status.textContent="ورود موفق؛ توکن دریافت شد.";
+document.getElementById("password").value="";
+}catch(e){status.textContent="خطا: "+e.message;}
+};
+</script>
+</main>
+</body>
+</html>
