@@ -10,22 +10,23 @@
 <nav><button class="tab active" data-page="home">خانه</button><button class="tab" data-page="items">کالاها</button><button class="tab" data-page="orders">سفارش‌ها</button></nav>
 <main>
 <section id="home" class="page active">
-  <div class="notice">این نسخه فقط برای آزمایش ظاهر و ثبت محلی است؛ به حسابداری یا انبار واقعی وصل نیست.</div>
+  <div class="notice">این نسخه آزمایشی است. سفارش‌ها روی گوشی ذخیره می‌شوند و پس از ورود به حساب، به سرور ارسال می‌شوند.</div>
   <div class="stats"><article><small>تعداد کالا</small><strong id="itemCount">0</strong></article><article><small>سفارش‌های ثبت‌شده</small><strong id="orderCount">0</strong></article></div>
-  <button class="primary" id="newOrder">＋ ثبت سفارش آزمایشی</button>
+  <button class="primary" id="newOrder">＋ ثبت سفارش</button>
   <h2>آخرین سفارش‌ها</h2><div id="recent"></div>
 </section>
 <section id="items" class="page"><h2>کالاهای آزمایشی</h2><div id="itemList"></div></section>
 <section id="orders" class="page"><h2>ثبت سفارش</h2>
 <form id="orderForm">
-<label>نام مشتری<input name="customer" required placeholder="مثلاً فروشگاه نمونه"></label>
+<label>نام یا کد مشتری<input name="customer" required placeholder="مثلاً CUSTOMER-001"></label>
 <label>کالا<select name="item" id="itemSelect"></select></label>
 <label>تعداد<input name="qty" type="number" min="1" value="1" required></label>
 <label>توضیحات<textarea name="note" placeholder="اختیاری"></textarea></label>
-<button class="primary" type="submit">ثبت سفارش روی گوشی</button>
+<button class="primary" type="submit">ثبت سفارش</button>
 </form><h2>سوابق سفارش</h2><div id="orderList"></div>
 </section>
 </main>
-<footer>اطلاعات این نمونه فقط در حافظه مرورگر همین گوشی ذخیره می‌شود.</footer>
+<footer>نسخه آزمایشی؛ اطلاعات کالا و موجودی هنوز نمونه هستند.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
 </body></html>
