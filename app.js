@@ -39,7 +39,8 @@ panel.innerHTML=
 '<label>Publishable Key<input id="sbPublishableKey" type="text" placeholder="sb_publishable_..." autocomplete="off"></label>'+
 '<label>ایمیل کاربر<input id="sbEmail" type="email" autocomplete="username"></label>'+
 '<label>رمز عبور<input id="sbPassword" type="password" autocomplete="current-password"></label>'+
-'<button class="primary" id="sbLogin" type="button">ذخیره تنظیمات و ورود</button>'+
+'<button class="primary" id="sbLogin" type="button">ورود به حساب</button>'+
+'<button class="primary" id="sbSignup" type="button">ثبت‌نام کاربر جدید</button>'+
 '<button id="sbLogout" type="button" style="width:100%;padding:11px;border-radius:9px;background:#e9efec;color:#153b35">خروج از حساب</button>'+
 '<p id="sbStatus" class="muted">هنوز به سرور وصل نشده‌ای.</p>'+
 '<button id="syncNow" type="button" style="width:100%;padding:11px;border-radius:9px;background:#e9efec;color:#153b35">ارسال سفارش‌های در انتظار</button>';
