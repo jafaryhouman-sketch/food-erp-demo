@@ -1,5 +1,5 @@
 
-const CACHE = "food-erp-demo-v3";
+const CACHE = "food-erp-demo-v4";
 
 const FILES = [
   "./",
