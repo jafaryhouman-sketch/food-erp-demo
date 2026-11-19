@@ -47,6 +47,7 @@ panel.innerHTML=
 notice.insertAdjacentElement("afterend",panel);
 if(sbConfig){document.getElementById("sbProjectUrl").value=sbConfig.url||"";document.getElementById("sbPublishableKey").value=sbConfig.key||"";document.getElementById("sbEmail").value=sbConfig.email||""}
 document.getElementById("sbLogin").onclick=login;
+  document.getElementById("sbSignup").onclick=signup;
 document.getElementById("sbLogout").onclick=logout;
 document.getElementById("syncNow").onclick=syncPendingOrders;
 }
@@ -55,6 +56,63 @@ const el=document.getElementById("sbStatus");if(!el)return;
 if(message){el.textContent=message;return}
 const pending=orders.filter(o=>o.sync_status==="pending"||o.sync_status==="error").length;
 el.textContent=currentSession?"وارد شده‌ای: "+(currentSession.user.email||"کاربر")+" · سفارش‌های در انتظار: "+pending:"برای ارسال سفارش‌ها، ابتدا وارد حساب کاربری شو.";
+}
+async function signup(){
+  const url=document.getElementById("sbProjectUrl").value.trim().replace(/\/+$/,"");
+  const key=document.getElementById("sbPublishableKey").value.trim();
+  const email=document.getElementById("sbEmail").value.trim();
+  const password=document.getElementById("sbPassword").value;
+
+  if(!url||!key||!email||!password){
+    updateConnectionStatus("آدرس پروژه، کلید، ایمیل و رمز عبور را وارد کن.");
+    return;
+  }
+
+  if(password.length<6){
+    updateConnectionStatus("رمز عبور باید حداقل ۶ کاراکتر باشد.");
+    return;
+  }
+
+  if(!window.supabase){
+    updateConnectionStatus("کتابخانه Supabase بارگذاری نشده است.");
+    return;
+  }
+
+  try{
+    updateConnectionStatus("در حال ساخت حساب کاربری...");
+
+    sbConfig={url,key,email};
+    localStorage.setItem("demo_supabase_config",JSON.stringify(sbConfig));
+
+    sbClient=window.supabase.createClient(url,key,{
+      auth:{
+        persistSession:true,
+        autoRefreshToken:true
+      }
+    });
+
+    const result=await sbClient.auth.signUp({
+      email,
+      password
+    });
+
+    if(result.error) throw result.error;
+
+    document.getElementById("sbPassword").value="";
+
+    if(result.data.session){
+      currentSession=result.data.session;
+      updateConnectionStatus("ثبت‌نام و ورود موفق بود.");
+      await syncPendingOrders();
+    }else{
+      updateConnectionStatus(
+        "حساب ساخته شد. برای ورود، ایمیل خود را تأیید کن."
+      );
+    }
+
+  }catch(e){
+    updateConnectionStatus("خطا در ثبت‌نام: "+e.message);
+  }
 }
 async function login(){
 const url=document.getElementById("sbProjectUrl").value.trim().replace(/\/+$/,"");
