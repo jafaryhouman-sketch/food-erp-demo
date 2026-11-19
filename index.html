@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#153b35"><link rel="manifest" href="manifest.webmanifest">
+<title>آزمایش نرم‌افزار پخش</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div><small>نسخه آزمایشی موبایل</small><h1>مدیریت پخش</h1></div><span id="net" class="pill">در حال بررسی…</span></header>
+<nav><button class="tab active" data-page="home">خانه</button><button class="tab" data-page="items">کالاها</button><button class="tab" data-page="orders">سفارش‌ها</button></nav>
+<main>
+<section id="home" class="page active">
+  <div class="notice">این نسخه فقط برای آزمایش ظاهر و ثبت محلی است؛ به حسابداری یا انبار واقعی وصل نیست.</div>
+  <div class="stats"><article><small>تعداد کالا</small><strong id="itemCount">0</strong></article><article><small>سفارش‌های ثبت‌شده</small><strong id="orderCount">0</strong></article></div>
+  <button class="primary" id="newOrder">＋ ثبت سفارش آزمایشی</button>
+  <h2>آخرین سفارش‌ها</h2><div id="recent"></div>
+</section>
+<section id="items" class="page"><h2>کالاهای آزمایشی</h2><div id="itemList"></div></section>
+<section id="orders" class="page"><h2>ثبت سفارش</h2>
+<form id="orderForm">
+<label>نام مشتری<input name="customer" required placeholder="مثلاً فروشگاه نمونه"></label>
+<label>کالا<select name="item" id="itemSelect"></select></label>
+<label>تعداد<input name="qty" type="number" min="1" value="1" required></label>
+<label>توضیحات<textarea name="note" placeholder="اختیاری"></textarea></label>
+<button class="primary" type="submit">ثبت سفارش روی گوشی</button>
+</form><h2>سوابق سفارش</h2><div id="orderList"></div>
+</section>
+</main>
+<footer>اطلاعات این نمونه فقط در حافظه مرورگر همین گوشی ذخیره می‌شود.</footer>
+<script src="app.js"></script>
+</body></html>
