@@ -96,9 +96,20 @@ headers:{"Content-Type":"application/json","apikey":sbConfig.key,"Authorization"
 body:JSON.stringify(order.payload)
 });
 const result=await response.json().catch(()=>({error:"پاسخ سرور قابل خواندن نیست"}));
-if(response.ok||(response.status===409&&result.error==="Duplicate order")){
-order.sync_status="synced";order.sync_error="";order.server_id=result.order?.id||order.server_id||"";
-}else{order.sync_status="error";order.sync_error=result.error||("خطای سرور: "+response.status)}
+
+if (
+  response.ok ||
+  result.code === "23505" ||
+  (result.error || "").includes("orders_external_id_key")
+) {
+  order.sync_status = "synced";
+  order.sync_error = "";
+  order.server_id = result.order?.id || order.server_id || "";
+} else {
+  order.sync_status = "error";
+  order.sync_error = result.error || ("خطای سرور: " + response.status);
+}
+
 }catch(e){order.sync_status="error";order.sync_error=e.message||"خطای ارتباط با سرور"}
 save();
 }
